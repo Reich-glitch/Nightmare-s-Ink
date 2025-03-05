@@ -11,7 +11,8 @@ public class GameController : MonoBehaviour
 
     public GameObject player;
     public GameObject LoadCanvas;
-    public List<GameObject> levels;
+    public GameObject levelContainer; // Assign your LevelContainer here
+    private List<GameObject> levels = new List<GameObject>();
     public static int currentLevelIndex = 0;
 
     public GameObject gameOverScreen;
@@ -19,7 +20,7 @@ public class GameController : MonoBehaviour
     public static int survivedLevelsCount;
 
     public static event Action OnReset;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         progressAmount = 0;
@@ -29,6 +30,14 @@ public class GameController : MonoBehaviour
         PlayerHealth.OnPlayedDied += GameOverScreen;
         LoadCanvas.SetActive(false);
         gameOverScreen.SetActive(false);
+
+        // Automatically Get All Levels from the LevelContainer
+        foreach (Transform child in levelContainer.transform)
+        {
+            levels.Add(child.gameObject);
+        }
+
+        LoadLevel(0, false);
     }
 
     void GameOverScreen()
@@ -45,7 +54,7 @@ public class GameController : MonoBehaviour
         survivedLevelsCount = 0;
         LoadLevel(0, false);
         OnReset?.Invoke(); // Fire reset event
-        GameController.currentLevelIndex = 0; // Reset the level count
+        GameController.currentLevelIndex = 0;
         Time.timeScale = 1;
     }
 
@@ -53,9 +62,10 @@ public class GameController : MonoBehaviour
     {
         progressAmount += amount;
         progressSlider.value = progressAmount;
-        if(progressAmount >= 100)
+
+        if (progressAmount >= 100)
         {
-            //Level Complete
+            // Level Complete
             LoadCanvas.SetActive(true);
         }
     }
@@ -64,26 +74,28 @@ public class GameController : MonoBehaviour
     {
         LoadCanvas.SetActive(false);
 
-        // Deactivate all levels first
+        // Turn off all Levels
         foreach (var lvl in levels)
         {
             lvl.SetActive(false);
         }
 
-        int loopedLevel = level % levels.Count; // Loop the levels
-        levels[loopedLevel].gameObject.SetActive(true);
+        // Loop Levels
+        int loopedLevel = level % levels.Count; // Automatically loop based on level count
+        levels[loopedLevel].SetActive(true);
 
-        player.transform.position = new Vector3(0,0,0); 
+        player.transform.position = Vector3.zero; 
 
-        currentLevelIndex = survivedLevelsCount;
+        currentLevelIndex = level;
         progressAmount = 0;
         progressSlider.value = 0;
-        if(wantSurvivedIncrease) survivedLevelsCount++;
+
+        if (wantSurvivedIncrease) survivedLevelsCount++;
     }
-    
+
     void LoadNextLevel()
     {
-        int nextLevelIndex = (currentLevelIndex == levels.Count - 1) ? 0 : currentLevelIndex + 1; 
+        int nextLevelIndex = currentLevelIndex + 1;
         LoadLevel(nextLevelIndex, true);
     }
 }

@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      adventurer-run3-sword-Sheet_0: 2227654461495373571
+      adventurer-run3-sword-Sheet_1: 5770161675376398024
+      adventurer-run3-sword-Sheet_2: 5632033071882028075
+      adventurer-run3-sword-Sheet_3: -4783991137977900449
+      adventurer-run3-sword-Sheet_4: -3043147360182343524
+      adventurer-run3-sword-Sheet_5: 8502528233740748347
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

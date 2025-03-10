@@ -35,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
     if (enemy)
     {
         TakeDamage(enemy.damage);
+        SoundEffectManager.Play("PlayerHit");
     }
 }
 
@@ -46,6 +47,11 @@ private void OnTriggerEnter2D(Collider2D collision)
     if (trap && trap.damage > 0)
     {
         TakeDamage(trap.damage);
+        SoundEffectManager.Play("PlayerHit");
+    }
+    else if (trap)
+    {
+        SoundEffectManager.Play("Bounce");
     }
 }
 

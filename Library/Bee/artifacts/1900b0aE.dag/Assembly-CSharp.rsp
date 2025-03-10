@@ -444,6 +444,8 @@
 -analyzer:"D:/Game Development/Editor/6000.0.32f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Game Development/Editor/6000.0.32f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"D:/Game Development/Editor/6000.0.32f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
+"Assets/IntroManager.cs"
+"Assets/MusicManager.cs"
 "Assets/Scrips/Bullet.cs"
 "Assets/Scrips/Collector.cs"
 "Assets/Scrips/Enemy.cs"
@@ -463,6 +465,9 @@
 "Assets/Scrips/SecretArea.cs"
 "Assets/Scrips/SpeedItem.cs"
 "Assets/Scrips/Trap.cs"
+"Assets/SoundEffectLibrary.cs"
+"Assets/SoundEffectManager.cs"
+"Assets/StartMenuController.cs"
 -langversion:9.0
 /deterministic
 /optimize+

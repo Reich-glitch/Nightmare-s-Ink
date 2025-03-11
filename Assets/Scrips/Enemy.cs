@@ -10,13 +10,14 @@ public class Enemy : MonoBehaviour
     public float chaseSpeed = 2f;
     public float jumpForce = 2f;
     public LayerMask groundLayer;
+    public GameObject deathParticles;
 
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool shouldJump;
 
     public int damage = 1;
-    public int maxHealth = 3;
+    public int maxHealth = 1;
     private int currentHealth;
     private SpriteRenderer spriteRenderer;
     private Color ogColor;
@@ -39,8 +40,7 @@ public class Enemy : MonoBehaviour
     public void ScaleStats(int level)
     {
         int finalLevel = GameController.survivedLevelsCount + 1;
-        maxHealth = 3 + (level * 2); // Health increases by 2 every level
-        damage = 1 + (level / 2);    // Damage increases every 2 levels
+        maxHealth = 1 + (level * 1); // Health increases by 2 every level
         chaseSpeed = 2f + (level * 0.1f); // Speed increases gradually
         spriteRenderer.color = Color.Lerp(Color.white, Color.red, (float)level / 20f);
 
@@ -96,12 +96,21 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        StartCoroutine(FlashWhite());
-        if(currentHealth <= 0)
+        
+        if (deathParticles != null)
         {
-            Die();
-        } 
+            GameObject particles = Instantiate(deathParticles, transform.position, Quaternion.identity);
+            Destroy(particles, 1f); // Destroy particles after 1 second
+        }
+        
+        StartCoroutine(FlashWhite());
+
+        if (currentHealth <= 0)
+        {
+            Die(); // Call Die() only if enemy should be removed
+        }
     }
+
 
     private IEnumerator FlashWhite()
     {
@@ -113,6 +122,11 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         bool droppedLoot = false;
+        if (deathParticles != null)
+        {
+            Instantiate(deathParticles, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
 
         foreach(LootItem lootItem in lootTable)
         {

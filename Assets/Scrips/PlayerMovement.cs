@@ -195,7 +195,9 @@ public class PlayerMovement : MonoBehaviour
         if(context.performed && wallJumpTimer > 0f)
         {
             isWallJumping = true;
-            rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y); //jump away from the wall
+            rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x * 2 ,0); // Reset Y before jump
+            rb.AddForce(new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y), ForceMode2D.Impulse);
+            //jump away from the wall
             wallJumpTimer = 0;
             JumpFX();
 

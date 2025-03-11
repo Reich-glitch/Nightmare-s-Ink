@@ -459,6 +459,7 @@
 "Assets/Scrips/LootItem.cs"
 "Assets/Scrips/MovingPlatform.cs"
 "Assets/Scrips/ObjectSpawner.cs"
+"Assets/Scrips/PauseMenu.cs"
 "Assets/Scrips/PlayerHealth.cs"
 "Assets/Scrips/PlayerMovement.cs"
 "Assets/Scrips/PlayerShoot.cs"
